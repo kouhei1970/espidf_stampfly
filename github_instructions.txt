@@ -1,0 +1,18 @@
+GitHubにリポジトリを作成する手順：
+
+1. ブラウザでGitHubにログイン（https://github.com/login）
+2. 右上の「+」ボタンをクリックし、「New repository」を選択
+3. リポジトリ名に「espidf_stampfly」を入力
+4. 説明（オプション）に「ESP32S3をターゲットとしたStampFlyの制御ソフトウェア」を入力
+5. リポジトリを「Public」に設定
+6. 「Initialize this repository with a README」のチェックを外す（すでにREADMEを作成済み）
+7. 「Create repository」ボタンをクリック
+
+リポジトリが作成されたら、以下のコマンドを実行してリモートリポジトリを追加し、プッシュします：
+
+```bash
+git remote add origin https://github.com/kouhei1970/espidf_stampfly.git
+git push -u origin main
+```
+
+GitHubのユーザー名とパスワード（またはアクセストークン）の入力を求められたら、入力してください。
