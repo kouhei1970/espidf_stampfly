@@ -1,0 +1,26 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "C_Cpp.default.configurationProvider": "ms-vscode.vscode-json",
+        "C_Cpp.intelliSenseEngine": "default",
+        "C_Cpp.errorSquiggles": "enabled",
+        "idf.adapterTargetName": "esp32s3",
+        "idf.espIdfPath": "/Users/kouhei/esp/esp-idf",
+        "files.associations": {
+            "*.h": "c",
+            "*.c": "c",
+            "*.hpp": "cpp",
+            "*.cpp": "cpp"
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-vscode.cpptools",
+            "espressif.esp-idf-extension"
+        ]
+    }
+}

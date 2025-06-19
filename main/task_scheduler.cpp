@@ -1,4 +1,7 @@
 #include "task_scheduler.h"
+#include "serial.hpp"
+#include "esp_timer.h"
+#include <inttypes.h>
 
 namespace StampFly {
     // ログタグ
@@ -16,11 +19,29 @@ namespace StampFly {
         ESP_LOGI(TAG, "制御タスク開始 (333Hz)");
         
         TickType_t xLastWakeTime = xTaskGetTickCount();
-        const TickType_t xFrequency = pdMS_TO_TICKS(3); // 333Hz = 3ms周期 (FreeRTOSで実現可能な400Hzに最も近い値)
+        const TickType_t xFrequency = pdMS_TO_TICKS(3) > 0 ? pdMS_TO_TICKS(3) : 1; // 333Hz = 3ms周期、最小1tick
+        
+        uint32_t cycleCount = 0;
+        uint64_t lastReportTime = esp_timer_get_time();
         
         while (true) {
             // TODO: 制御ロジックを実装
             // 現在は空の実装
+            
+            cycleCount++;
+            
+            // 1秒ごとに動作状況を報告
+            uint64_t currentTime = esp_timer_get_time();
+            if (currentTime - lastReportTime >= 1000000) { // 1秒 = 1,000,000マイクロ秒
+                float actualFreq = (float)cycleCount * 1000000.0f / (currentTime - lastReportTime);
+                ESP_LOGI(TAG, "制御タスク: %" PRIu32 " cycles, 実際の周波数: %.1f Hz (目標: 333Hz)", cycleCount, actualFreq);
+                if (serial_is_initialized()) {
+                    serial_printf("Control Task: %.1f Hz\n", actualFreq);
+                }
+                
+                cycleCount = 0;
+                lastReportTime = currentTime;
+            }
             
             // 正確な周期で実行するためにvTaskDelayUntilを使用
             vTaskDelayUntil(&xLastWakeTime, xFrequency);
@@ -32,11 +53,29 @@ namespace StampFly {
         ESP_LOGI(TAG, "IMUタスク開始 (333Hz)");
         
         TickType_t xLastWakeTime = xTaskGetTickCount();
-        const TickType_t xFrequency = pdMS_TO_TICKS(3); // 333Hz = 3ms周期 (FreeRTOSで実現可能な400Hzに最も近い値)
+        const TickType_t xFrequency = pdMS_TO_TICKS(3) > 0 ? pdMS_TO_TICKS(3) : 1; // 333Hz = 3ms周期、最小1tick
+        
+        uint32_t cycleCount = 0;
+        uint64_t lastReportTime = esp_timer_get_time();
         
         while (true) {
             // TODO: IMUデータ処理を実装
             // 現在は空の実装
+            
+            cycleCount++;
+            
+            // 1秒ごとに動作状況を報告
+            uint64_t currentTime = esp_timer_get_time();
+            if (currentTime - lastReportTime >= 1000000) { // 1秒 = 1,000,000マイクロ秒
+                float actualFreq = (float)cycleCount * 1000000.0f / (currentTime - lastReportTime);
+                ESP_LOGI(TAG, "IMUタスク: %" PRIu32 " cycles, 実際の周波数: %.1f Hz (目標: 333Hz)", cycleCount, actualFreq);
+                if (serial_is_initialized()) {
+                    serial_printf("IMU Task: %.1f Hz\n", actualFreq);
+                }
+                
+                cycleCount = 0;
+                lastReportTime = currentTime;
+            }
             
             // 正確な周期で実行するためにvTaskDelayUntilを使用
             vTaskDelayUntil(&xLastWakeTime, xFrequency);
@@ -48,11 +87,29 @@ namespace StampFly {
         ESP_LOGI(TAG, "中速度センサタスク開始 (100Hz)");
         
         TickType_t xLastWakeTime = xTaskGetTickCount();
-        const TickType_t xFrequency = pdMS_TO_TICKS(10); // 100Hz = 10ms周期
+        const TickType_t xFrequency = pdMS_TO_TICKS(10) > 0 ? pdMS_TO_TICKS(10) : 1; // 100Hz = 10ms周期、最小1tick
+        
+        uint32_t cycleCount = 0;
+        uint64_t lastReportTime = esp_timer_get_time();
         
         while (true) {
             // TODO: 中速度センサデータ取得を実装
             // 現在は空の実装
+            
+            cycleCount++;
+            
+            // 2秒ごとに動作状況を報告
+            uint64_t currentTime = esp_timer_get_time();
+            if (currentTime - lastReportTime >= 2000000) { // 2秒 = 2,000,000マイクロ秒
+                float actualFreq = (float)cycleCount * 1000000.0f / (currentTime - lastReportTime);
+                ESP_LOGI(TAG, "中速度センサタスク: %" PRIu32 " cycles, 実際の周波数: %.1f Hz (目標: 100Hz)", cycleCount, actualFreq);
+                if (serial_is_initialized()) {
+                    serial_printf("Medium Sensor Task: %.1f Hz\n", actualFreq);
+                }
+                
+                cycleCount = 0;
+                lastReportTime = currentTime;
+            }
             
             // 正確な周期で実行するためにvTaskDelayUntilを使用
             vTaskDelayUntil(&xLastWakeTime, xFrequency);
@@ -64,11 +121,29 @@ namespace StampFly {
         ESP_LOGI(TAG, "低速センサタスク開始 (50Hz)");
         
         TickType_t xLastWakeTime = xTaskGetTickCount();
-        const TickType_t xFrequency = pdMS_TO_TICKS(20); // 50Hz = 20ms周期
+        const TickType_t xFrequency = pdMS_TO_TICKS(20) > 0 ? pdMS_TO_TICKS(20) : 1; // 50Hz = 20ms周期、最小1tick
+        
+        uint32_t cycleCount = 0;
+        uint64_t lastReportTime = esp_timer_get_time();
         
         while (true) {
             // TODO: 低速センサデータ取得を実装
             // 現在は空の実装
+            
+            cycleCount++;
+            
+            // 3秒ごとに動作状況を報告
+            uint64_t currentTime = esp_timer_get_time();
+            if (currentTime - lastReportTime >= 3000000) { // 3秒 = 3,000,000マイクロ秒
+                float actualFreq = (float)cycleCount * 1000000.0f / (currentTime - lastReportTime);
+                ESP_LOGI(TAG, "低速センサタスク: %" PRIu32 " cycles, 実際の周波数: %.1f Hz (目標: 50Hz)", cycleCount, actualFreq);
+                if (serial_is_initialized()) {
+                    serial_printf("Slow Sensor Task: %.1f Hz\n", actualFreq);
+                }
+                
+                cycleCount = 0;
+                lastReportTime = currentTime;
+            }
             
             // 正確な周期で実行するためにvTaskDelayUntilを使用
             vTaskDelayUntil(&xLastWakeTime, xFrequency);
@@ -80,11 +155,29 @@ namespace StampFly {
         ESP_LOGI(TAG, "超低速センサタスク開始 (30Hz)");
         
         TickType_t xLastWakeTime = xTaskGetTickCount();
-        const TickType_t xFrequency = pdMS_TO_TICKS(33); // 30Hz ≈ 33ms周期
+        const TickType_t xFrequency = pdMS_TO_TICKS(33) > 0 ? pdMS_TO_TICKS(33) : 1; // 30Hz ≈ 33ms周期、最小1tick
+        
+        uint32_t cycleCount = 0;
+        uint64_t lastReportTime = esp_timer_get_time();
         
         while (true) {
             // TODO: 超低速センサデータ取得を実装
             // 現在は空の実装
+            
+            cycleCount++;
+            
+            // 5秒ごとに動作状況を報告
+            uint64_t currentTime = esp_timer_get_time();
+            if (currentTime - lastReportTime >= 5000000) { // 5秒 = 5,000,000マイクロ秒
+                float actualFreq = (float)cycleCount * 1000000.0f / (currentTime - lastReportTime);
+                ESP_LOGI(TAG, "超低速センサタスク: %" PRIu32 " cycles, 実際の周波数: %.1f Hz (目標: 30Hz)", cycleCount, actualFreq);
+                if (serial_is_initialized()) {
+                    serial_printf("Very Slow Sensor Task: %.1f Hz\n", actualFreq);
+                }
+                
+                cycleCount = 0;
+                lastReportTime = currentTime;
+            }
             
             // 正確な周期で実行するためにvTaskDelayUntilを使用
             vTaskDelayUntil(&xLastWakeTime, xFrequency);
