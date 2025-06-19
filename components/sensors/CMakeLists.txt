@@ -1,0 +1,12 @@
+idf_component_register(
+    SRCS
+        "attitude.cpp"
+        "compass.cpp"
+        "barometer.cpp"
+        "distance.cpp"
+        "optical_flow.cpp"
+        "power_monitor.cpp"
+        "sensors.cpp"
+    INCLUDE_DIRS
+        "."
+)
