@@ -6,7 +6,7 @@ bool Sensors::initializeAllSensors() {
     result &= attitude.initialize();
     result &= compass.initialize();
     result &= barometer.initialize();
-    result &= distance.initialize();
+    result &= range.initialize();
     result &= opticalFlow.initialize();
     result &= powerMonitor.initialize();
     
@@ -19,7 +19,7 @@ bool Sensors::configureAllSensors() {
     result &= attitude.configure();
     result &= compass.configure();
     result &= barometer.configure();
-    result &= distance.configure();
+    result &= range.configure();
     result &= opticalFlow.configure();
     result &= powerMonitor.configure();
     
@@ -32,7 +32,7 @@ bool Sensors::checkAllSensorStatus() {
     result &= attitude.checkStatus();
     result &= compass.checkStatus();
     result &= barometer.checkStatus();
-    result &= distance.checkStatus();
+    result &= range.checkStatus();
     result &= opticalFlow.checkStatus();
     result &= powerMonitor.checkStatus();
     
@@ -45,7 +45,7 @@ bool Sensors::resetAllSensors() {
     result &= attitude.reset();
     result &= compass.reset();
     result &= barometer.reset();
-    result &= distance.reset();
+    result &= range.reset();
     result &= opticalFlow.reset();
     result &= powerMonitor.reset();
     

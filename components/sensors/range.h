@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-class DistanceSensor {
+class RangeSensor {
 public:
     // センサの初期化
     bool initialize();
@@ -11,10 +11,10 @@ public:
     bool configure();
 
     // 距離測定
-    bool measureDistance(float& distance);
+    bool measureRange(float& range);
 
     // 複数回の測定と平均値の取得
-    bool measureAverageDistance(float& averageDistance, int numMeasurements);
+    bool measureAverageRange(float& averageRange, int numMeasurements);
 
     // 障害物検出
     bool detectObstacle(float threshold, bool& obstacleDetected);

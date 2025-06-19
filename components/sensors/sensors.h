@@ -3,7 +3,7 @@
 #include "attitude.h"
 #include "compass.h"
 #include "barometer.h"
-#include "distance.h"
+#include "range.h"
 #include "optical_flow.h"
 #include "power_monitor.h"
 
@@ -25,7 +25,7 @@ public:
     AttitudeSensor& getAttitude() { return attitude; }
     CompassSensor& getCompass() { return compass; }
     BarometerSensor& getBarometer() { return barometer; }
-    DistanceSensor& getDistance() { return distance; }
+    RangeSensor& getRange() { return range; }
     OpticalFlowSensor& getOpticalFlow() { return opticalFlow; }
     PowerMonitorSensor& getPowerMonitor() { return powerMonitor; }
 
@@ -34,7 +34,7 @@ private:
     AttitudeSensor attitude;
     CompassSensor compass;
     BarometerSensor barometer;
-    DistanceSensor distance;
+    RangeSensor range;
     OpticalFlowSensor opticalFlow;
     PowerMonitorSensor powerMonitor;
 };

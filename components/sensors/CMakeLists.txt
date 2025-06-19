@@ -3,7 +3,7 @@ idf_component_register(
         "attitude.cpp"
         "compass.cpp"
         "barometer.cpp"
-        "distance.cpp"
+        "range.cpp"
         "optical_flow.cpp"
         "power_monitor.cpp"
         "sensors.cpp"
